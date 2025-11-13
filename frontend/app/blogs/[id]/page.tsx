@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/dialog';
 import { getBlogById, deleteBlog, GeneratedPost } from '@/lib/api';
 import { formatDistanceToNow } from 'date-fns';
-import { ArrowLeft, AlertCircle, MoreVertical, Trash2, Loader2 } from 'lucide-react';
+import { ArrowLeft, AlertCircle, MoreVertical, Trash2, Loader2, Linkedin, Check } from 'lucide-react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -36,6 +36,7 @@ export default function BlogDetailPage() {
   const [deleting, setDeleting] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
   useEffect(() => {
     async function fetchBlog() {
@@ -130,6 +131,44 @@ export default function BlogDetailPage() {
     }
   };
 
+  const handleLinkedInShare = async () => {
+    if (!blog) return;
+
+    try {
+      // Get the current page URL
+      const blogUrl = typeof window !== 'undefined' 
+        ? `${window.location.origin}/blogs/${id}`
+        : '';
+
+      // Prepare the blog content for LinkedIn
+      // Remove markdown formatting for plain text
+      const plainTextContent = blog.content
+        .replace(/#{1,6}\s+/g, '') // Remove markdown headers
+        .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+        .replace(/\*(.*?)\*/g, '$1') // Remove italic
+        .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Remove links, keep text
+        .replace(/`([^`]+)`/g, '$1') // Remove inline code
+        .trim();
+
+      // Create share text with title and content preview (LinkedIn has character limits)
+      const shareText = `${blog.title}\n\n${plainTextContent.substring(0, 2000)}${plainTextContent.length > 2000 ? '...' : ''}`;
+
+      // Copy content to clipboard
+      await navigator.clipboard.writeText(shareText);
+      setCopiedToClipboard(true);
+      
+      // Reset the copied state after 3 seconds
+      setTimeout(() => setCopiedToClipboard(false), 3000);
+
+      // Open LinkedIn share dialog
+      const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(blogUrl)}`;
+      window.open(linkedInUrl, '_blank', 'width=600,height=700,scrollbars=yes,resizable=yes');
+    } catch (err) {
+      console.error('Failed to share on LinkedIn:', err);
+      setError('Failed to prepare LinkedIn share. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12 md:px-6 md:py-16">
@@ -154,6 +193,18 @@ export default function BlogDetailPage() {
           </div>
         )}
 
+        {/* Success Message for LinkedIn Share */}
+        {copiedToClipboard && (
+          <div className="mx-auto mb-8 max-w-4xl">
+            <div className="flex items-center gap-2 rounded-lg border border-green-500/50 bg-green-500/10 p-4 text-green-500">
+              <Check className="h-5 w-5" />
+              <p className="text-sm font-medium">
+                Blog content copied to clipboard! Paste it into the LinkedIn post dialog.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Blog Content */}
         <Card className="mx-auto max-w-4xl border-border/50 bg-card/50">
           <CardHeader className="pb-4">
@@ -166,7 +217,22 @@ export default function BlogDetailPage() {
                   Generated {formattedDate}
                 </p>
               </div>
-              <DropdownMenu>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleLinkedInShare}
+                  className="h-9 w-9 shrink-0 transition-colors hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5]"
+                  title="Share on LinkedIn"
+                >
+                  {copiedToClipboard ? (
+                    <Check className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <Linkedin className="h-4 w-4" />
+                  )}
+                  <span className="sr-only">Share on LinkedIn</span>
+                </Button>
+                <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
@@ -192,6 +258,7 @@ export default function BlogDetailPage() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+              </div>
             </div>
           </CardHeader>
           <CardContent>
