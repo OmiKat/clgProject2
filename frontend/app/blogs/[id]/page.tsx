@@ -150,8 +150,11 @@ export default function BlogDetailPage() {
         .replace(/`([^`]+)`/g, '$1') // Remove inline code
         .trim();
 
-      // Create share text with title and content preview (LinkedIn has character limits)
-      const shareText = `${blog.title}\n\n${plainTextContent.substring(0, 2000)}${plainTextContent.length > 2000 ? '...' : ''}`;
+      // Create share text with prominent title heading and content
+      // Format: Title as heading, then content, then link
+      // LinkedIn posts work well with this format
+      const contentPreview = plainTextContent.substring(0, 1800); // Leave room for title and link
+      const shareText = `${blog.title}\n\n${contentPreview}${plainTextContent.length > 1800 ? '...' : ''}\n\n${blogUrl}`;
 
       // Copy content to clipboard
       await navigator.clipboard.writeText(shareText);
