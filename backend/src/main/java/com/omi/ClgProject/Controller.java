@@ -5,11 +5,9 @@ import com.omi.ClgProject.Repo.GeneratedPostRepo;
 import com.omi.ClgProject.service.RedditService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,25 +30,6 @@ public class Controller {
                             // @RequestParam(defaultValue = "false") boolean publish
                             ) {
         return redditService.fetchSummarizeAndStore(subreddit, limit);
-    }
-
-    @PostMapping(value = "", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<GeneratedPost> create(@RequestBody GeneratedPost post) {
-        if (post.getTitle() == null || post.getTitle().trim().isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-        if (post.getContent() == null || post.getContent().trim().isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        GeneratedPost newPost = GeneratedPost.builder()
-                .title(post.getTitle().trim())
-                .content(post.getContent().trim())
-                .createdAt(Instant.now())
-                .build();
-
-        GeneratedPost savedPost = repository.save(newPost);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedPost);
     }
 
     @GetMapping("/{id}")
