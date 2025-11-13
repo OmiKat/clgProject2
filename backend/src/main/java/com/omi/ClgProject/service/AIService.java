@@ -32,7 +32,7 @@ Reddit Post Title: %s
 Reddit Post Content:
 %s
 
-Now produce the final blog article in plain text — no markdown, no lists, just a well-written narrative.
+Now produce the final blog article in — markdown format, just a well-written narrative.
 """.formatted(title, body == null ? "" : body);
 
 

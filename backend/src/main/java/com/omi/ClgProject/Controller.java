@@ -26,9 +26,10 @@ public class Controller {
 
     @PostMapping("/fetch")
     public List<UUID> fetch(@RequestParam String subreddit,
-                            @RequestParam(defaultValue = "5") int limit,
-                            @RequestParam(defaultValue = "false") boolean publish) {
-        return redditService.fetchSummarizeAndStore(subreddit, limit, publish);
+                            @RequestParam(defaultValue = "5") int limit
+                            // @RequestParam(defaultValue = "false") boolean publish
+                            ) {
+        return redditService.fetchSummarizeAndStore(subreddit, limit);
     }
 
     @GetMapping("/{id}")
@@ -38,5 +39,13 @@ public class Controller {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }

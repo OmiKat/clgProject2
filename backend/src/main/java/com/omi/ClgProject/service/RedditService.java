@@ -28,7 +28,7 @@ public class RedditService {
     private final GeneratedPostRepo genRepo;
 
     @Transactional
-    public List<UUID> fetchSummarizeAndStore(String subreddit, int limit, boolean publish) {
+    public List<UUID> fetchSummarizeAndStore(String subreddit, int limit) {
         SubredditReference ref = redditClient.subreddit(subreddit);
         DefaultPaginator<Submission> paginator = ref.posts()
                 .sorting(SubredditSort.HOT)
