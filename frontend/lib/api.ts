@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8081';
+const API_BASE_URL = 'https://spring-backend-na32.onrender.com';
 
 export interface GeneratedPost {
   id: string;
