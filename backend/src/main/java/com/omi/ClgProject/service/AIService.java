@@ -36,7 +36,7 @@ Now produce the final blog article in — markdown format, just a well-written n
 """.formatted(title, body == null ? "" : body);
 
 
-        System.out.println(prompt);
+//        System.out.println(prompt);
 
         return chatClient
                 .prompt()
