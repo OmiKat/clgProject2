@@ -1,0 +1,13 @@
+com\omi\ClgProject\config\CorsConfig.class
+com\omi\ClgProject\Domain\GeneratedPost$GeneratedPostBuilder.class
+com\omi\ClgProject\Repo\GeneratedPostRepo.class
+com\omi\ClgProject\Controller.class
+com\omi\ClgProject\Domain\RawPost$RawPostBuilder.class
+com\omi\ClgProject\service\RedditService.class
+com\omi\ClgProject\config\AiConfig.class
+com\omi\ClgProject\Domain\GeneratedPost.class
+com\omi\ClgProject\config\RedditConfig.class
+com\omi\ClgProject\Domain\RawPost.class
+com\omi\ClgProject\ClgProjectApplication.class
+com\omi\ClgProject\Repo\RawPostRepo.class
+com\omi\ClgProject\service\AIService.class

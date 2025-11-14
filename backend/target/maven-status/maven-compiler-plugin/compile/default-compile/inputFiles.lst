@@ -1,0 +1,11 @@
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\ClgProjectApplication.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\config\AiConfig.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\config\CorsConfig.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\config\RedditConfig.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\Controller.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\Domain\GeneratedPost.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\Domain\RawPost.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\Repo\GeneratedPostRepo.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\Repo\RawPostRepo.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\service\AIService.java
+D:\java\ClgProject 2\backend\src\main\java\com\omi\ClgProject\service\RedditService.java

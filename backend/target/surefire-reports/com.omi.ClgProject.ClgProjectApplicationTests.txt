@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.omi.ClgProject.ClgProjectApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.76 s -- in com.omi.ClgProject.ClgProjectApplicationTests
