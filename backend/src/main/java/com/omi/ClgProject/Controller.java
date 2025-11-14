@@ -14,6 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/blogs")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class Controller {
     private final GeneratedPostRepo repository;
     private final RedditService redditService;
@@ -46,6 +47,10 @@ public class Controller {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+    @GetMapping("/actuator/health")
+    public String healthcheck(){
+        return "running fine";
     }
 
 }
