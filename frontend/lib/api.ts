@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://spring-backend-na32.onrender.com';
+const API_BASE_URL = 'https://spring-backend-1-2p9l.onrender.com';
 
 export interface GeneratedPost {
   id: string;
